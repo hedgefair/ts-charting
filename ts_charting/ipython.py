@@ -7,7 +7,11 @@ from ts_charting import reset_figure
 
 IN_NOTEBOOK = True
 instance = IPython.Application._instance
-if isinstance(instance, IPython.frontend.terminal.ipapp.TerminalIPythonApp):
+if hasattr(IPython, 'frontend'):
+    term = IPython.frontend.terminal.ipapp.TerminalIPythonApp
+else:
+    term = IPython.terminal.ipapp.TerminalIPythonApp
+if isinstance(instance, term):
     IN_NOTEBOOK = False
 
 def figsize(width, height):
